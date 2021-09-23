@@ -1,0 +1,6 @@
+https://github.com/adry26/flaskapp-ADS
+
+# User and password to test the web:
+# USER: test
+# PASSWORD: 1234
+https://ads-adriatorralbaagell-fooapp.herokuapp.com/products/

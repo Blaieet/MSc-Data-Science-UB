@@ -1,0 +1,5 @@
+
+
+* Github url with Flask exercise code: https://github.com/Blaieet/Flask_First_WebApp_Blai
+
+* Heroku / DockerHub url with the code deployed: https://flask-fooapp-blai.herokuapp.com/

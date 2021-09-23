@@ -1,0 +1,13 @@
+ 
+model {
+for (i in 1:nrows){
+  Response[i] ~ dbern(p[i])  
+  logit(p[i]) <- mu[i]   
+  mu[i] <- b[9] + b[1] * Gender[i] + b[2] * Age[i] + b[3] * Driving_License[i] + b[4] * Previously_Insured[i] + b[5] * Vehicle_Age[i] + b[6] * Vehicle_Damage[i] + b[7] * Annual_Premium[i] + b[8] * Vintage[i] + b[10] * GenderXGender[i] + b[11] * AgeXGender[i] + b[12] * AgeXAge[i] + b[13] * Driving_LicenseXGender[i] + b[14] * Driving_LicenseXAge[i] + b[15] * Driving_LicenseXDriving_License[i] + b[16] * Previously_InsuredXGender[i] + b[17] * Previously_InsuredXAge[i] + b[18] * Previously_InsuredXDriving_License[i] + b[19] * Previously_InsuredXPreviously_Insured[i] + b[20] * Vehicle_AgeXGender[i] + b[21] * Vehicle_AgeXAge[i] + b[22] * Vehicle_AgeXDriving_License[i] + b[23] * Vehicle_AgeXPreviously_Insured[i] + b[24] * Vehicle_AgeXVehicle_Age[i] + b[25] * Vehicle_DamageXGender[i] + b[26] * Vehicle_DamageXAge[i] + b[27] * Vehicle_DamageXDriving_License[i] + b[28] * Vehicle_DamageXPreviously_Insured[i] + b[29] * Vehicle_DamageXVehicle_Age[i] + b[30] * Vehicle_DamageXVehicle_Damage[i] + b[31] * Annual_PremiumXGender[i] + b[32] * Annual_PremiumXAge[i] + b[33] * Annual_PremiumXDriving_License[i] + b[34] * Annual_PremiumXPreviously_Insured[i] + b[35] * Annual_PremiumXVehicle_Age[i] + b[36] * Annual_PremiumXVehicle_Damage[i] + b[37] * Annual_PremiumXAnnual_Premium[i] + b[38] * VintageXGender[i] + b[39] * VintageXAge[i] + b[40] * VintageXDriving_License[i] + b[41] * VintageXPreviously_Insured[i] + b[42] * VintageXVehicle_Age[i] + b[43] * VintageXVehicle_Damage[i] + b[44] * VintageXAnnual_Premium[i] + b[45] * VintageXVintage[i] 
+}
+for(j in 1:46){
+  b[j] ~ dnorm(0, 0.1)
+  }
+
+}
+

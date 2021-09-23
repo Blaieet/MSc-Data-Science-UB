@@ -1,0 +1,6 @@
+[13:08, 11/5/2020] Pablo Granadaaaa: 1) Predictor substep: resolver el sistema A*delta=b con  A=M_KKT y b=-F(z_k) usando numpy.linalg.solve
+[13:09, 11/5/2020] Pablo Granadaaaa: 2) setp-size correction substep: ya está implementado, te da el valor de alpha
+[13:09, 11/5/2020] Pablo Granadaaaa: 3) calcular mu, mu* y sigma con los valores que indica el pdf
+[13:10, 11/5/2020] Pablo Granadaaaa: 4) Corrector substep: resolver el sistema A*delta=b con A=M_KKT y hay que cambiar b con lo que hemos calculado en los pasos 2 y 3
+[13:10, 11/5/2020] Pablo Granadaaaa: 5) step-size correction...
+[13:11, 11/5/2020] Pablo Granadaaaa: 6) z_{k+1} = z_k + 0.95*alpha*delta_k,  el valor de alpha es el del paso 5 y  delta_k el del paso 4

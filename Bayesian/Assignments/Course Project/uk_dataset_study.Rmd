@@ -1,0 +1,114 @@
+---
+title: "pca exploration"
+author: "Irene Bonafonte"
+date: "7/8/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tensorflow PPCA
+
+```{r}
+sampleInfo <- readRDS("Data/ProcessedDatasets/UK_all_time_decathlon.RDS")
+
+# Importing PCA results
+W <- read.csv("Data/Loadings/python_w.csv", row.names = NULL, header=FALSE)
+Z <- read.csv("Data/Loadings/python_z.csv", row.names = NULL, header=FALSE)
+
+colnames(W) <- colnames(sampleInfo)[1:10]
+colnames(Z) <- colnames(sampleInfo)[1:10]
+```
+
+```{r}
+library(gplots)
+
+heatmap.2(as.matrix(W), col = bluered(70), dendrogram='none',trace='none', Rowv = FALSE, Colv = FALSE, key=TRUE)
+heatmap.2(t(as.matrix(Z)), col = bluered(70), dendrogram ='both',trace='none', Rowv = TRUE, Colv = TRUE, key=TRUE)
+```
+```{r}
+library(factoextra)
+
+fviz_pca_var(res.pca, axes = c(1,2), repel=TRUE, 
+               col.var="contrib", gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"))
+```
+
+# Bayesian PCA with Rdimtools
+
+```{r}
+data <- sampleInfo
+data[1:4,]
+data <- data[data$Year != 'PB', ]
+data <- scale(as.matrix(data[,-c(11,12)]))
+```
+
+
+```{r}
+library("Rdimtools")
+rdim_bpca <- do.bpca(data, ndim = 8)
+rdim_bpca$projection
+```
+
+```{r}
+library(gplots)
+W <- rdim_bpca$projection
+W[is.infinite(W)] <- 0
+Z <- rdim_bpca$Y
+Z[is.infinite(Z)|is.na(Z)] <- 0
+row.names(W) <- colnames(data)
+
+heatmap.2(W, col = bluered(70), dendrogram='none',trace='none', Rowv = FALSE, Colv = FALSE, key=TRUE)
+heatmap.2(Z, col = bluered(70), dendrogram ='both',trace='none', Rowv = TRUE, Colv = FALSE, key=TRUE)
+```
+```{r}
+library(pcaMethods)
+
+pcam_bpca <- pca(data, method="bpca", nPcs=9, seed=123)
+
+```
+```{r}
+W <- pcam_bpca@loadings
+Z <- pcam_bpca@scores
+#Z[is.infinite(Z)|is.na(Z)] <- 0
+#row.names(W) <- colnames(data)
+
+heatmap.2(W, col = bluered(70), dendrogram='none',trace='none', Rowv = FALSE, Colv = FALSE, key=TRUE)
+heatmap.2(Z, col = bluered(70), dendrogram ='both',trace='none', Rowv = TRUE, Colv = FALSE, key=TRUE)
+```
+
+# Traditional PCA
+
+```{r}
+  year_performance <- readRDS("Data/ProcessedDatasets/UK_all_time_decathlon.RDS")
+  # Compute and visualize PCA
+  res.pca <- prcomp(year_performance[,!colnames(year_performance) %in% c('Year','Athlete')], scale=TRUE) 
+  fviz_eig(res.pca)
+  fviz_pca_var(res.pca, axes = c(1,2), repel=TRUE, 
+               col.var="contrib", gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"))
+  fviz_pca_var(res.pca, axes = c(3,4), repel=TRUE, 
+               col.var="contrib", gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"))
+  fviz_pca_var(res.pca, axes = c(5,6), repel=TRUE, 
+               col.var="contrib", gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"))
+  fviz_pca_ind(res.pca, geom="point", habillage = year_performance$Athlete) 
+```
+
+```{r}
+sort(table(year_performance$Athlete), decreasing=TRUE)
+```
+```{r}
+dt <- res.pca$x[year_performance$Athlete == '23703' & year_performance$Year != 'PB', ]
+dt <- cbind(dt,Year=as.numeric(as.character(year_performance$Year[year_performance$Athlete == '21485' & year_performance$Year != 'PB'])))
+row.names(dt) <- NULL
+library(tidyr); library(ggplot2)
+
+dt <- pivot_longer(data.frame(dt), !Year, names_to="PC", values_to="Value")
+dt <- dt[dt$PC %in% c("PC1","PC2","PC3","PC4"), ]
+ggplot(dt, aes(x=Year, y=Value, group=PC, color=PC)) +
+    geom_line() +
+    geom_point() +
+    scale_color_brewer(palette="Dark2") +
+    theme_minimal()
+```
+

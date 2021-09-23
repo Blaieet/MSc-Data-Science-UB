@@ -1,0 +1,15 @@
+ 
+model {
+for (i in 1:nrows){
+  Response[i] ~ dbern(p[i])  
+  logit(p[i]) <- mu[i]   
+  mu[i] <- b[9] + b[2] * Gender[i] + b[3] * Age[i] + b[4] * Driving_License[i] + b[5] * Previously_Insured[i] + 
+        b[6] * Vehicle_Age[i] + b[7] * Vehicle_Damage[i] + b[8] * Vintage[i] + b[1] * Annual_Premium[i]
+  }
+
+for(j in 1:9){
+  b[j] ~ dnorm(0, 0.1)
+  }
+
+}
+

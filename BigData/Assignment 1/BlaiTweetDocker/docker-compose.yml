@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  mongodb:
+    image: 'mongo'
+    hostname: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=TwitterDocker
+      - MONGO_INITDB_ROOT_USERNAME=dbUser
+      - MONGO_INITDB_ROOT_PASSWORD=abc16819154
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./TwitterDocker-volume:/data/db
+    ports:
+      - '27017:27017'
+
+  tweet-collector:
+    build: .
+    image: blaiet/blaitweetcollector
+    container_name: tweet-collector
+    depends_on:
+      - mongodb
+    environment:
+      - WAIT_HOSTS=mongodb:27017
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30 
+    ports:
+      - '9000:9000'
+    

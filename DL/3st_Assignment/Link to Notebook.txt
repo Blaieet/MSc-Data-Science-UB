@@ -1,0 +1,9 @@
+Hi!
+
+You can download & load both models if you don't want to train.
+
+Notebook: https://colab.research.google.com/drive/1ZhGn5eOzRwttVy0z9SAf5jDSQinsY0A5?usp=sharing
+
+Model 1, word to color: https://drive.google.com/file/d/1pU7MRoP6c55qKg1gQuth2M9dxOI8fiZZ/view?usp=sharing
+
+Model 2, color to word: https://drive.google.com/file/d/1pU7MRoP6c55qKg1gQuth2M9dxOI8fiZZ/view?usp=sharing

@@ -1,0 +1,27 @@
+ 
+data {
+    int<lower=0> nrows; //Number of data items
+    int<lower=0,upper=1> Response[nrows]; //Outcome vector
+    //Predictors
+    vector[nrows] Gender;
+    vector[nrows] Age;
+    vector[nrows] Driving_License;
+    vector[nrows] Previously_Insured;
+    vector[nrows] Vehicle_Age;
+    vector[nrows] Vehicle_Damage;
+    vector[nrows] Annual_Premium;
+    vector[nrows] Vintage;
+
+}
+parameters {
+  vector[9] b; //Coefficients for predictors
+}
+model {
+  Response ~ bernoulli_logit(b[9] + b[2] * Gender + b[3] * Age + b[4] * Driving_License + b[5] * Previously_Insured + 
+        b[6] * Vehicle_Age + b[7] * Vehicle_Damage + b[8] * Vintage);
+  for(i in 1:9){
+    b[i] ~ normal(0, 3); 
+  }
+}
+
+

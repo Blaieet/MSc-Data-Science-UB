@@ -1,0 +1,540 @@
+.ally-tooltip,
+.arrow::after {
+    left: 100px;
+    position: absolute;
+    top: 100px;
+    visibility: hidden;
+}
+
+.ally-tooltip {
+    border-radius: 3px;
+    border: 1px solid #DDD;
+    box-shadow: 6px 5px 9px -9px #000;
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    max-width: 400px;
+    opacity: 0.9;
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 9999;
+}
+
+.ally-tooltip div:first-child {
+    position: relative;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.ally-tooltip,
+.ally-tooltip .ally-arrow::after {
+    background-color: #000;
+}
+
+.ally-tooltip .ally-arrow {
+    bottom: -16px;
+    height: 16px;
+    left: 50%;
+    margin-left: -35px;
+    overflow: hidden;
+    position: absolute;
+    width: 70px;
+    pointer-events: none;
+}
+
+.ally-tooltip .ally-arrow.ally-arrow-top {
+    bottom: auto;
+    top: -16px;
+}
+
+.ally-tooltip .ally-arrow::after {
+    border: 1px solid #000;
+    box-shadow: 6px 5px 9px -9px #000;
+    content: "";
+    height: 25px;
+    left: 21px;
+    position: absolute;
+    top: -20px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 25px;
+    border-color: #FFF;
+}
+
+.ally-tooltip .ally-arrow-top::after {
+    bottom: -20px;
+    top: auto;
+}
+
+.ally-tooltip .ally-arrow-bottom {
+    top: -16px;
+}
+
+.ally-tooltip .ally-arrow-bottom::after {
+    bottom: -20px;
+    top: auto;
+}
+
+.ally-tooltip .ally-arrow-left {
+    left: 0;
+    margin-left: -28px;
+    top: calc(50% - 17px);
+    height: 38px;
+    width: 28px;
+}
+
+.ally-tooltip .ally-arrow-left::after {
+    right: auto;
+    top: 4px;
+}
+
+.ally-tooltip .ally-arrow-right {
+    left: 100%;
+    margin-left: 0;
+    top: calc(50% - 18px);
+    height: 38px;
+    width: 14px;
+}
+
+.ally-tooltip .ally-arrow-right::after {
+    left: -20px;
+    top: 5px;
+}
+
+.ally-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+@media print{/**
+ * Copyright (c) 2016 "Fronteer LTD". All rights reserved.
+ */
+
+/*
+ * These styles should only be applied when the browser is rendering the page in print mode. They should not interfere
+ * with any page or LMS components and simply aim to hide Ally functionality that's not desired in print view.
+ */
+
+body.ally-instructor-feedback-active,
+body.ally-accessible-versions-active {
+    overflow: visible;
+}
+
+/* Hide all the LMS specific content when printing instructor feedback */
+body.ally-instructor-feedback-active > *:not(.ally-iframe-mask) {
+    display: none !important;
+}
+
+/** Ensure the iframe is long enough to accomodate the guidance from the instructor feedback */
+.ally-iframe-mask,
+.ally-iframe {
+    bottom: auto !important;
+    height: 3000px !important;
+    overflow: visible !important;
+    position: static !important;
+}
+
+/* Hide score indicators in print mode */
+.ally-accessibility-score-indicator {
+    display: none !important;
+}
+
+/* Hide the A4W Launcher */
+.ally-af-launch-container {
+    display: none !important;
+}
+
+/* Hide the seizure guards in preview mode */
+.ally-image-seizure-guard {
+    display: none !important;
+}
+
+/* Hide alternative format icons in print mode */
+.ally-alternative-formats {
+    display: none !important;
+}
+}/**
+ * Copyright (c) 2016 "Fronteer LTD". All rights reserved.
+ */
+
+/* Import the print styles */
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+body.ally-instructor-feedback-active,
+body.ally-accessible-versions-active {
+    overflow: hidden;
+}
+
+.ally-iframe-mask {
+    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: -ms-flexbox;
+    display: flex;
+}
+
+/* Loading icon */
+.ally-iframe-mask > img {
+    animation: spin 1s linear infinite;
+    height: 80px;
+    margin: auto;
+    opacity: 1;
+    outline: none;
+    transition: opacity 0.2s linear;
+    width: 80px;
+}
+
+.ally-iframe-mask.ally-iframe-active > img {
+    opacity: 0;
+}
+
+/* Close button */
+.ally-iframe-mask button {
+    /* Note: Needs to be in line with the X in the instructor feedback sidebar */
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 10px;
+    position: fixed;
+    right: 10px;
+    top: 5px;
+}
+
+.ally-iframe-mask button > img {
+    /* Note: Needs to be in line with the X in the instructor feedback sidebar */
+    height: auto;
+    width: 36px;
+}
+
+.ally-iframe-mask > .ally-iframe {
+    display: none;
+}
+
+.ally-iframe-mask.ally-iframe-active > .ally-iframe {
+    display: block;
+}
+
+.ally-iframe-mask,
+.ally-iframe {
+    border: none;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    z-index: 2147483647;
+}
+
+/* SCORE INDICATOR */
+
+.ally-scoreindicator {
+    text-align: center;
+}
+
+/* SEIZURE GUARD */
+
+.ally-image-seizure-guard {
+    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+
+    /* Relative to the score indicator. This must be lower */
+    z-index: 1;
+}
+
+.ally-image-seizure-guard > button {
+    background-color: transparent;
+    background-image: none;
+    border: 0;
+    box-shadow: none;
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.ally-image-seizure-guard > button > img {
+    height: 30%;
+
+    /* Override canvas inline styles that seem to dynamically get dropped onto images */
+    max-height: 100px !important;
+    max-width: 100px !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
+    width: 30%;
+}
+
+.ally-accessibility-score-indicator {
+    user-select: none;
+}
+
+.ally-accessibility-score-indicator .screenreader-only,
+.ally-sr-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/** Ally 4 Web Alternative Formats */
+
+.ally-af-launch-container {
+    background-color: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    z-index: 2147483638;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small,
+.ally-af-launch-container.ally-af-style-flag_large {
+    position: fixed;
+    right: 0;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small {
+    bottom: 10%;
+}
+
+.ally-af-launch-container.ally-af-style-flag_large {
+    bottom: 20%;
+}
+
+.ally-af-launch-container.ally-af-style-bar_bottom {
+    bottom: 0;
+    display: flex;
+    height: 75px;
+    left: 0;
+    position: fixed;
+    right: 0;
+}
+
+/* Set some default settings to try and serve as a "reset" for styles we may accidentally inherit from the parent. */
+.ally-af-launch-container > button {
+    color: #FFF;
+    cursor: pointer;
+    display: block;
+    font-family: "Roboto", "Fira Sans", "Segoe UI", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    position: static;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button,
+.ally-af-launch-container.ally-af-style-flag_large > button {
+    background: none;
+    border: solid 1px #FFF;
+    border-right: none;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button {
+    padding: 15px;
+}
+
+.ally-af-launch-container.ally-af-style-flag_large > button {
+    padding: 20px;
+}
+
+.ally-af-launch-container.ally-af-style-bar_bottom > button {
+    background: none;
+    border: solid 1px rgba(0, 0, 0, 0);
+    font-size: 14px;
+    margin: 15px 0 15px 90px;
+    padding: 0 20px;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button:hover,
+.ally-af-launch-container.ally-af-style-flag_large > button:hover,
+.ally-af-launch-container.ally-af-style-flag_small > button:focus,
+.ally-af-launch-container.ally-af-style-flag_large > button:focus {
+    background: #FFF;
+    border-color: #CCC;
+}
+
+.ally-af-launch-container.ally-af-style-bar_bottom > button:hover,
+.ally-af-launch-container.ally-af-style-bar_bottom > button:focus {
+    border: solid 1px #FFF;
+    border-radius: 3px;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button > img {
+    vertical-align: middle;
+    width: 25px;
+}
+
+.ally-af-launch-container.ally-af-style-flag_large > button > img {
+    vertical-align: top;
+    width: 35px;
+}
+
+.ally-af-launch-container.ally-af-style-bar_bottom > button > img {
+    left: 20px;
+    position: absolute;
+    top: 22px;
+    width: 45px;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button > img.ally-af-launch-icon-black,
+.ally-af-launch-container.ally-af-style-flag_large > button > img.ally-af-launch-icon-black,
+.ally-af-launch-container.ally-af-style-bar_bottom > button > img.ally-af-launch-icon-black {
+    display: none;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button > img.ally-af-launch-icon-white,
+.ally-af-launch-container.ally-af-style-flag_large > button > img.ally-af-launch-icon-white {
+    display: inline-block;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button:hover > img.ally-af-launch-icon-black,
+.ally-af-launch-container.ally-af-style-flag_large > button:hover > img.ally-af-launch-icon-black,
+.ally-af-launch-container.ally-af-style-flag_small > button:focus > img.ally-af-launch-icon-black,
+.ally-af-launch-container.ally-af-style-flag_large > button:focus > img.ally-af-launch-icon-black {
+    display: inline-block;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button:hover > img.ally-af-launch-icon-white,
+.ally-af-launch-container.ally-af-style-flag_large > button:hover > img.ally-af-launch-icon-white,
+.ally-af-launch-container.ally-af-style-flag_small > button:focus > img.ally-af-launch-icon-white,
+.ally-af-launch-container.ally-af-style-flag_large > button:focus > img.ally-af-launch-icon-white {
+    display: none;
+}
+
+.ally-af-launch-container.ally-af-style-flag_small > button > span,
+.ally-af-launch-container.ally-af-style-flag_large > button > span {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/* Reduce the size of both flag sizes on small devices */
+
+@media only screen and (max-width: 768px) {
+    .ally-af-launch-container.ally-af-style-flag_large,
+    .ally-af-launch-container.ally-af-style-flag_small {
+        bottom: 5%;
+    }
+
+    .ally-af-launch-container.ally-af-style-flag_large > button > img,
+    .ally-af-launch-container.ally-af-style-flag_small > button > img {
+        width: 25px;
+    }
+
+    .ally-af-launch-container.ally-af-style-flag_large > button,
+    .ally-af-launch-container.ally-af-style-flag_small > button {
+        padding: 15px;
+    }
+}
+/**
+ * Copyright (c) 2016 "Fronteer LTD". All rights reserved.
+ */
+
+/* Import the base Ally styles */
+
+.filter-ally-wrapper.ally-image-wrapper .ally-actions .ally-feedback.ally-score-indicator-embedded {
+    background-color: transparent;
+}
+
+/** The moodle ally plugin sets some unnecessary padding, unset it. */
+.filter-ally-wrapper.ally-image-wrapper .ally-actions .ally-feedback.ally-score-indicator-embedded a {
+    padding: 0 !important;
+}
+
+.filter-ally-wrapper.ally-image-wrapper .ally-actions .ally-feedback.ally-score-indicator-embedded > span {
+    position: absolute;
+    bottom: -15px;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+/* The score indicator an AF icon should be positioned below the check mark and have the same vertical distance */
+li.snap-asset .filter-ally-wrapper.ally-anchor-wrapper .ally-actions.ally-actions-tile {
+    position: absolute;
+    right: 20px;
+    top: 45px;
+}
+
+li.snap-asset .filter-ally-wrapper.ally-anchor-wrapper .ally-actions.ally-actions-tile .ally-feedback {
+    margin-bottom: 8px;
+}
+
+li.snap-asset .filter-ally-wrapper.ally-anchor-wrapper .ally-actions.ally-actions-tile .ally-download {
+    margin-left: 18px;
+}
+
+[dir="rtl"] li.snap-asset .filter-ally-wrapper.ally-anchor-wrapper .ally-actions.ally-actions-tile {
+    left: 20px;
+    right: unset;
+}
+
+[dir="rtl"] li.snap-asset .filter-ally-wrapper.ally-anchor-wrapper .ally-actions.ally-actions-tile .ally-download {
+    margin-left: unset;
+    margin-right: 18px;
+}
+
+.ally-prominent-af-download-button {
+    background-image: url(/static/integration/img/ally-icon-af-download-logo.f25b92cffd71eaede2d7d3f62c34299d.svg);
+    background-size: cover;
+    display: none;
+    text-align: center;
+    margin: 0;
+    width: 25px;
+    height: 15px;
+}
+
+[dir="rtl"] .ally-prominent-af-download-button {
+    margin-left: unset !important;
+    margin-right: 5px !important;
+}
+
+.filter-ally-wrapper .ally-actions a.ally-prominent-af-download-button:hover,
+.filter-ally-wrapper .ally-actions span.ally-feedback:hover {
+    transform: scale(1.2);
+}
+
+/* Align the rich content download AF icon to the right */
+[data-ally-richcontent] > .ally-prominent-af-download-button {
+    float: right;
+}
+
+[dir="rtl"] [data-ally-richcontent] > .ally-prominent-af-download-button {
+    float: left;
+}
+
+/* Hide all Ally related icons or actions in print mode */
+@media print {
+    .ally-actions {
+        display: none;
+    }
+}
